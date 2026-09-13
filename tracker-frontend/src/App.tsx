@@ -22,7 +22,7 @@ function App() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    fetch("${API_URL}/applications", {
+    fetch(`${API_URL}/applications`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ company, status, deadline, jobLink }),
