@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3001";
+
 function App() {
   const [applications, setApplications] = useState<any[]>([]);
   const [company, setCompany] = useState("");
@@ -9,7 +11,7 @@ function App() {
   const [jobLink, setJobLink] = useState("");
 
   const loadApplications = () => {
-    fetch("http://localhost:3001/applications")
+    fetch(`${API_URL}/applications`)
       .then((res) => res.json())
       .then((data) => setApplications(data));
   };
@@ -20,7 +22,7 @@ function App() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    fetch("http://localhost:3001/applications", {
+    fetch("${API_URL}/applications", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ company, status, deadline, jobLink }),
@@ -33,13 +35,13 @@ function App() {
   };
 
   const handleDelete = (id: number) => {
-    fetch(`http://localhost:3001/applications/${id}`, {
+    fetch(`${API_URL}/applications/${id}`, {
       method: "DELETE",
     }).then(() => loadApplications());
   };
 
   const handleStatusChange = (id: number, newStatus: string) => {
-    fetch(`http://localhost:3001/applications/${id}`, {
+    fetch(`${API_URL}/applications/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status: newStatus }),

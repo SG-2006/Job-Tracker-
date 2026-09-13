@@ -37,4 +37,5 @@ app.delete("/applications/:id", (req, res) => {
   res.json({ success: true });
 });
 
-app.listen(3001, () => console.log("Backend running on port 3001"));
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log(`Backend running on port ${PORT}`));
